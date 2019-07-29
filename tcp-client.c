@@ -10,8 +10,7 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wmissing-noreturn"
+
 int main(int argc, char *argv[])
 {
     unsigned int port = 8080;
@@ -57,4 +56,4 @@ int main(int argc, char *argv[])
     close(send_buf);
     return 0;
 }
-#pragma clang diagnostic pop
+

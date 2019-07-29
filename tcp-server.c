@@ -10,8 +10,6 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wmissing-noreturn"
 int main(int argc, char *argv[])
 {
     unsigned short port = 12580;
@@ -84,4 +82,3 @@ int main(int argc, char *argv[])
     close(sockfd);
     return 0;
 }
-#pragma clang diagnostic pop
