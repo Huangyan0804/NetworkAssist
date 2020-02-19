@@ -15,7 +15,7 @@
 
 目前已完成UI：
 
-<img src="../MyNotes/pictures/2.png" style="zoom:50%;" />
+<img src="images/2.png" style="zoom:50%;" />
 
 
 
