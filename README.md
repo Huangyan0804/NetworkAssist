@@ -2,17 +2,26 @@
 
 ---
 
-参考UI：![示例](images/1.png)
+完成状态：
+
+- [x] TCP 
+- [ ] UDP
+- [x] 图形化界面
+- [ ] 链接函数
 
 
 
 ---
 
-完成状态：
+目前已完成UI：
 
-- [x] TCP 
-- [ ] UDP
-- [ ] 图形化界面
+<img src="../MyNotes/pictures/2.png" style="zoom:50%;" />
+
+
+
+参考UI：
+
+<img src="images/1.png" alt="示例"  />
 
 
 

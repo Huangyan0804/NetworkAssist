@@ -1,9 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
-from PyQt5.QtWidgets import *
-from PyQt5.QtGui import *
-from PyQt5.QtCore import *
+
 import sys
 """
     Ubuntu下网络测试工具
@@ -11,40 +9,43 @@ import sys
 """
 
 
-class MainWindow(QWidget):
+
+from PyQt5 import QtCore, QtGui, QtWidgets
+
+import sys
+from PyQt5 import QtWidgets
+from mainwindow import Ui_Form
+
+
+class MyPyQT_Form(QtWidgets.QWidget,Ui_Form):
     def __init__(self):
-        super().__init__()
-        self.init_window()
-        self.init_ui()
-        self.show()
+        super(MyPyQT_Form,self).__init__()
+        self.setupUi(self)
 
-    def init_window(self):
-        self.resize(800, 600)
-        self.center()
-        self.setWindowTitle('网络调试助手')
+    #实现pushButton_click()函数，textEdit是我们放上去的文本框的id
+    def slot1(self):
+        """发送数据"""
+        self.textEdit.setText("你点击了按钮")
 
-    def center(self):
-        qr = self.frameGeometry()
-        cp = QDesktopWidget().availableGeometry().center()
-        qr.moveCenter(cp)
-        self.move(qr.topLeft())
+    def slot2(self):
+        """连接网络"""
+        pass
 
-    def init_ui(self):
-        self.init_textedit()
+    def slot3(self):
+        """选择协议模式"""
+        pass
 
-    def init_textedit(self):
-        te = QTextEdit()
-        te.resize(te.sizeHint())
-        te.move(100, 100)
+    def slot4(self):
+        """清空接收区"""
+        pass
 
-
-
-
-def main():
-    app = QApplication(sys.argv)
-    ex = MainWindow()
-    sys.exit(app.exec_())
+    def slot5(self):
+        """复位计数"""
+        pass
 
 
 if __name__ == '__main__':
-    main()
+    app = QtWidgets.QApplication(sys.argv)
+    my_pyqt_form = MyPyQT_Form()
+    my_pyqt_form.show()
+    sys.exit(app.exec_())
