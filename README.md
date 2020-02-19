@@ -15,7 +15,7 @@
 
 目前已完成UI：
 
-<img src="images/2.png" style="zoom:50%;" />
+<img src="images/2.png" style="width:414px;" />
 
 
 
