@@ -4,14 +4,20 @@
 
 完成状态：
 
-- [ ] TCP
-- [x] UDP(BUG)
+- [ ] TCP客户端
+- [x] TCP服务器
+- [x] UDP
 - [x] 图形化界面
-- [x] 链接函数 (有BUG)
+- [x] 链接函数
 
 
 
 ---
+
+测试画面：
+<img src="images/3.png" style="zoom:50%;" />
+
+
 
 目前已完成UI：
 

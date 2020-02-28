@@ -11,16 +11,19 @@ import sys
 from PyQt5 import QtWidgets
 from mainwindow import Ui_Form
 from TcpUdp_01 import *
-import queue
-import multiprocessing
+
 
 # TODO many things
 class MyPyQT_Form(QtWidgets.QWidget, Ui_Form):
     def __init__(self):
         super(MyPyQT_Form, self).__init__()
         self.setupUi(self)
-        self.Tshow_msg = multiprocessing.Process(target=self.show_msg)
-        # self.msg_queue = queue.Queue(100)
+        my_ip = get_host_ip()
+        self.lineEdit.setText(my_ip)
+        self.lineEdit_3.setText(my_ip)
+        self.Tshow_msg = threading.Thread(target=self.show_msg)
+        self.Tshow_msg.setDaemon(True)
+        self.Tshow_msg.start()
         self.socket = UdpClient()
         self.mode = "UDP"
         # self.lineEdit.setText(str())
@@ -42,45 +45,51 @@ class MyPyQT_Form(QtWidgets.QWidget, Ui_Form):
         dest_port = self.lineEdit_4.text()
         # 发送数据
         if self.socket.status:
-            self.socket.send_msg(dest_ip, dest_port, data)
-            self.send_count += 1
+            try:
+                self.socket.send_msg(dest_ip, dest_port, data)
+                self.send_count += 1
+                self.label_5.setText("发送计数：" + str(self.send_count))
+            except Exception as ret:
+                print(ret)
+                pass
 
     def show_msg(self):
-        while self.socket.status:
-            if not self.socket.status:
-                break
-            while not self.socket.msg_queue.empty():
-                data = self.socket.msg_queue.get_nowait()
+        print("=====threading start=====")
+        while True:
+            time.sleep(0.2)
+            while msg_queue.qsize():
+                data = msg_queue.get_nowait()
+                print(data)
                 # 追加文本
                 ip_address = str(data[1][0])
                 ip_port = str(data[1][1])
                 msg = data[0].decode('utf-8')
-                self.textEdit.append(ip_address + ':' + ip_port + '发来一条消息：\n' + msg)
-                self.get_count += 1
-
-            self.label_5.setText("发送计数：" + str(self.send_count))
-            self.label_8.setText("接收计数：" + str(self.send_count))
+                # 只传输非空数据
+                if msg:
+                    self.textEdit.append('端口' + ip_address + ':' + ip_port +
+                                         '(' + time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+                                         + ')：\n->' + msg)
+                    self.get_count += 1
+                    # 文本框显示到底部
+                    self.textEdit.moveCursor(len(self.textEdit.toPlainText())+2)
+            self.label_8.setText("接收计数：" + str(self.get_count))
+        print("=====threading closed=====")
 
     def connect2net(self):
         """连接网络"""
         # 获取IP地址和端口
         if not self.socket.status:
+            # self.dbg("yes")
             self.chose_mode()
             ip_address = self.lineEdit.text()
             ip_port = self.lineEdit_2.text()
             self.socket.run(ip_address, ip_port)
-            try:
-                self.Tshow_msg.start()
-                print("yes")
-            except:
-                pass
             self.pushButton_2.setText('断开网络')
+            print('connected')
         else:
             self.socket.change_status()
             self.socket.shut_down()
-
             self.pushButton_2.setText('连接网络')
-            self.Tshow_msg.terminate()
             print("closed")
 
         pass
@@ -90,7 +99,7 @@ class MyPyQT_Form(QtWidgets.QWidget, Ui_Form):
             self.socket = UdpClient()
             pass
         elif self.mode == 'TCP服务器':
-            # self.socket = TcpServer()
+            self.socket = TcpServer()
             pass
         elif self.mode == 'TCP客户端':
             pass
