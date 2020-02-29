@@ -1,20 +1,26 @@
-#  【未完成】网络调试助手
+#  网络调试助手
 
 ---
 
 完成状态：
 
-- [ ] TCP客户端
+- [x] TCP客户端
 - [x] TCP服务器
 - [x] UDP
 - [x] 图形化界面
 - [x] 链接函数
+- [ ] 某些bug
 
 
 
 ---
 
 测试画面：
+
+<img src="images/4.png" style="zoom:50%;" />
+
+<img src="images/5.png" style="zoom:50%;" />
+
 <img src="images/3.png" style="zoom:50%;" />
 
 
